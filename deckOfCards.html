@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deck of cards</title>
+    <script type="text/javascript">
+        var suits = ['hearts', 'spades', 'diamonds', 'clubs']; 
+        var face = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; 
+
+        class Card {
+            constructor(name, suit, val) {
+                this.name = name;
+                this.suit = suit;
+                this.val = val;
+            }
+        }
+
+        class Deck {
+            constructor(suits, face) {
+                this.deck = [];
+                this.reset = (suits, face) => { 
+                    for (let i = 0; i < suits.length; i++) { 
+                        for (let j = 0; j < face.length; j++) { 
+                            if (!isNaN(parseInt(face[j]))) { 
+                                this.deck.push(new Card(face[j], suits[i], parseInt(face[j]))); 
+                            } else if (face[j] == 'J' || face[j] == 'Q' || face[j] == 'K') { 
+                                this.deck.push(new Card(face[j], suits[i], 10)); 
+                            } else { 
+                                this.deck.push(new Card(face[j], suits[i], 11)); 
+                            }
+                        }
+                    }
+                };
+                this.reset(suits, face); 
+                this.shuffle = () => { 
+                    var currIdx = this.deck.length;
+                    while (0 !== currIdx) { 
+                        let randIdx = Math.floor(Math.random() * currIdx); 
+                        currIdx -= 1; 
+                        let temp = this.deck[currIdx]; 
+                        this.deck[currIdx] = this.deck[randIdx]; 
+                        this.deck[randIdx] = temp; 
+                    }
+                };
+                this.deal = () => { 
+                    return this.deck.pop();
+                };
+            }
+        }
+
+        class Player {
+            constructor(name) {
+                this.name = name;
+                this.hand = [];
+
+                this.takeCard = deal => {
+                    var card;
+                    if (typeof(deal) == 'function') { 
+                        card = deal(); 
+                    } else { 
+                        card = deal; 
+                    }
+                    this.hand.push(card); 
+                };
+                this.discard = () => { 
+                    this.hand.pop();
+                };
+            }
+        }
+
+
+        var deck = new Deck(suits, face);
+        var player = new Player('PJ');
+        deck.shuffle();
+        var card = deck.deal;
+        player.takeCard(card);
+        console.log(deck.deck);
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>
