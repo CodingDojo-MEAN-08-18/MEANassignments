@@ -1,0 +1,29 @@
+#survey{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 2px solid black;
+	padding-bottom: 20px;
+	max-width: 50%;
+	margin: auto;
+	margin-top: 150px;
+	align-self: center;
+}
+
+buttons{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 200px;
+}
+
+form{
+	display: flex;
+	flex-direction: column;
+}
+input{
+    display: inline-block;
+}
+label{
+    display: inline-block;
+}
